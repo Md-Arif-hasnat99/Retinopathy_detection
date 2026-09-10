@@ -1,10 +1,16 @@
 import { useState } from 'react'
 import RiskForm from './components/RiskForm.jsx'
 import ResultCard from './components/ResultCard.jsx'
+import BackendStatusBanner from './components/BackendStatusBanner.jsx'
+import { useBackendHealth } from './hooks/useBackendHealth.js'
 
 export default function App() {
   const [result, setResult] = useState(null)   // { data, error } | null
   const [isLoading, setIsLoading] = useState(false)
+
+  // Wakes up the Render backend on app load; tracks readiness state.
+  const { backendStatus } = useBackendHealth()
+  const backendReady = backendStatus === 'ready'
 
   return (
     <div className="app">
@@ -35,6 +41,9 @@ export default function App() {
         </div>
       </header>
 
+      {/* ── Backend Status Banner ────────────────────────────── */}
+      <BackendStatusBanner status={backendStatus} />
+
       {/* ── Main ───────────────────────────────────────────── */}
       <main className="app-main" id="main-content">
         <div className="container">
@@ -49,6 +58,7 @@ export default function App() {
               onResult={setResult}
               onLoading={setIsLoading}
               isLoading={isLoading}
+              backendReady={backendReady}
             />
           </div>
         </div>

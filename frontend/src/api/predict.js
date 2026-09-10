@@ -1,11 +1,14 @@
 /**
- * predict.js — API wrapper for the /predict endpoint.
+ * predict.js — API wrapper for the /predict and /health endpoints.
  *
  * Reads VITE_API_URL from environment variables (set in .env).
  * Falls back to localhost:8000 in development if the variable is unset.
+ *
+ * Production: set VITE_API_URL=https://your-backend.onrender.com in Vercel.
  */
 
-const BASE_URL = import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? 'http://localhost:8000'
+export const BASE_URL =
+  import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? 'http://localhost:8000'
 
 /**
  * Send 18 numeric features to the backend /predict endpoint.

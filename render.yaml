@@ -1,0 +1,26 @@
+# render.yaml — Render deployment configuration for the FastAPI backend.
+# Docs: https://render.com/docs/yaml-spec
+#
+# Usage:
+#   1. Push this file to your GitHub repo.
+#   2. In Render dashboard → New → Blueprint → connect your repo.
+#   3. Render will automatically detect this file and create the service.
+
+services:
+  - type: web
+    name: retinopathy-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    plan: free
+
+    envVars:
+      - key: ALLOWED_ORIGINS
+        # Replace with your actual Vercel frontend URL after deploying:
+        # e.g. https://your-project.vercel.app
+        # Comma-separate multiple origins if needed.
+        value: http://localhost:5173
+
+      - key: PYTHON_VERSION
+        value: "3.11.0"

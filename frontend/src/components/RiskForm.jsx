@@ -212,7 +212,7 @@ function FormSection({ section, values, onChange, onBlur, errors, touched, disab
 }
 
 /* ── RiskForm ────────────────────────────────────────────────── */
-export default function RiskForm({ onResult, onLoading, isLoading }) {
+export default function RiskForm({ onResult, onLoading, isLoading, backendReady }) {
   const [values, setValues] = useState(initialValues)
   const [touched, setTouched] = useState(initialTouched)
   const [submitAttempted, setSubmitAttempted] = useState(false)
@@ -318,8 +318,9 @@ export default function RiskForm({ onResult, onLoading, isLoading }) {
             type="submit"
             id="btn-assess-risk"
             className="btn btn-primary btn-lg"
-            disabled={isLoading}
+            disabled={isLoading || !backendReady}
             aria-busy={isLoading}
+            title={!backendReady ? 'Please wait — prediction system is starting…' : undefined}
           >
             {isLoading ? (
               <>
@@ -336,6 +337,8 @@ export default function RiskForm({ onResult, onLoading, isLoading }) {
                 />
                 Assessing…
               </>
+            ) : !backendReady ? (
+              'System Starting…'
             ) : (
               'Assess Risk'
             )}
