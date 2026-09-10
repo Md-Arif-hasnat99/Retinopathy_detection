@@ -14,9 +14,9 @@ import { useState, useEffect, useRef } from 'react'
 const BASE_URL =
   import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? 'http://localhost:8000'
 
-const MAX_RETRIES = 12       // 12 attempts × ~5 s ≈ ~60 s total window
-const RETRY_DELAY_MS = 5000  // 5 seconds between retries
-const REQUEST_TIMEOUT_MS = 8000 // individual request timeout
+const MAX_RETRIES = 12        // 12 attempts
+const RETRY_DELAY_MS = 6000   // 6 seconds between retries
+const REQUEST_TIMEOUT_MS = 15000 // 15 s — enough for Render free-tier cold start
 
 /**
  * @returns {{ backendStatus: 'starting'|'ready'|'unavailable' }}

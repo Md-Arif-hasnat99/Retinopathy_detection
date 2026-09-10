@@ -17,10 +17,7 @@ services:
 
     envVars:
       - key: ALLOWED_ORIGINS
-        # Replace with your actual Vercel frontend URL after deploying:
-        # e.g. https://your-project.vercel.app
-        # Comma-separate multiple origins if needed.
-        value: http://localhost:5173
+        value: http://localhost:5173,https://frontend-coral-six-y7di4jddl1.vercel.app
 
       - key: PYTHON_VERSION
         value: "3.11.0"
